@@ -42,7 +42,7 @@ def processRequest(req):
         "displayText": speech,
         # "data": data,
         # "contextOut": [],
-        "source": "apiai-weather-webhook-sample"
+        "source": "gujjuweathers"
     }
    
 
@@ -93,7 +93,7 @@ def makeWebhookResult(data):
         "displayText": speech,
         # "data": data,
         # "contextOut": [],
-        "source": "apiai-weather-webhook-sample"
+        "source": "gujjuweathers"
     }
 
 
