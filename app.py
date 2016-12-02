@@ -23,9 +23,9 @@ def webhook():
 
     res = json.dumps(res, indent=4)
     # print(res)
-    r = make_response(res)
+    r = make_response("parik dhakan")
     r.headers['Content-Type'] = 'application/json'
-    return res
+    return r
 
 
 def processRequest(req):
@@ -77,7 +77,7 @@ def makeWebhookResult(data):
 
     # print(json.dumps(item, indent=4))
 
-    speech = "parikToday in " + location.get('city') + ": " + condition.get('text') + \
+    speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
              ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
 
     print("Response:")
@@ -88,7 +88,7 @@ def makeWebhookResult(data):
         "displayText": speech,
         # "data": data,
         # "contextOut": [],
-        "source": "apiai-weather-webhook-sample"
+        "source": "gujjuweathers"
     }
 
 
