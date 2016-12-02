@@ -19,13 +19,22 @@ def webhook():
     print("Request:")
     print(json.dumps(req, indent=4))
 
-    res = processRequest(req)
+    
+if req.get("result").get("action") != "GyahooWeatherForecast":
+        return {}
+    
+         speech = "Gujju response:Today in london is too cool and warm" 
 
-    res = json.dumps(res, indent=4)
-    # print(res)
-    r = make_response(res)
-    r.headers['Content-Type'] = 'application/json'
-    return r
+    print("Response:")
+    print(speech)
+
+    return {
+        "speech": speech,
+        "displayText": speech,
+        # "data": data,
+        # "contextOut": [],
+        "source": "gujjuweathers"
+    }
 
 
 def processRequest(req):
