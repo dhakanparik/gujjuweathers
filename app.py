@@ -14,6 +14,9 @@ app = Flask(__name__)
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
+
+    if req.get("result").get("action") != "yahooWeatherForecast":
+        return {}
     r = make_response("parik dhakan")
     r.headers['Content-Type'] = 'application/json'
     # req = request.get_json(silent=True, force=True)
