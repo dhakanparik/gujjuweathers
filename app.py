@@ -12,7 +12,7 @@ from flask import make_response
 app = Flask(__name__)
 
 
-@app.route('/webhook', methods=['POST'])
+@app.route('/webhook', methods=['GET'])
 def webhook():
     
          speech = "Gujju response:Today in london is too cool and warm" 
