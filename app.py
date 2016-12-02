@@ -29,7 +29,7 @@ def webhook():
 
 
 def processRequest(req):
-    if req.get("result").get("action") != "GyahooWeatherForecast":
+    if req.get("result").get("action") != "yahooWeatherForecast":
         return {}
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
     yql_query = makeYqlQuery(req)
@@ -77,9 +77,9 @@ def makeWebhookResult(data):
 
     # print(json.dumps(item, indent=4))
 
-    # speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
-    #          ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
-speech = "Gujju response:today weather is too good"
+    speech = "Today in " + location.get('city') + ": " + condition.get('text') + \
+             ", the temperature is " + condition.get('temp') + " " + units.get('temperature')
+
     print("Response:")
     print(speech)
 
@@ -88,7 +88,7 @@ speech = "Gujju response:today weather is too good"
         "displayText": speech,
         # "data": data,
         # "contextOut": [],
-        "source": "gujjuweathers"
+        "source": "apiai-weather-webhook-sample"
     }
 
 
