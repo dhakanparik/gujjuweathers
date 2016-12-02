@@ -15,9 +15,6 @@ app = Flask(__name__)
 @app.route('/webhook', methods=['POST'])
 def webhook():
     
-if req.get("result").get("action") != "GyahooWeatherForecast":
-        return {}
-    
          speech = "Gujju response:Today in london is too cool and warm" 
 
     print("Response:")
