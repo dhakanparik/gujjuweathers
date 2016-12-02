@@ -12,40 +12,34 @@ from flask import make_response
 app = Flask(__name__)
 
 
-@app.route('/webhook', methods=['GET'])
+@app.route('/webhook', methods=['POST'])
 def webhook():
-    
-         speech = "Gujju response:Today in london is too cool and warm" 
+    req = request.get_json(silent=True, force=True)
 
-    print("Response:")
-    print(speech)
+    print("Request:")
+    print(json.dumps(req, indent=4))
 
-    return {
-        "speech": speech,
-        "displayText": speech,
-        # "data": data,
-        # "contextOut": [],
-        "source": "gujjuweathers"
-    }
+    res = processRequest(req)
+
+    res = json.dumps(res, indent=4)
+    # print(res)
+    r = make_response(res)
+    r.headers['Content-Type'] = 'application/json'
+    return r
 
 
 def processRequest(req):
     if req.get("result").get("action") != "GyahooWeatherForecast":
         return {}
-    
-         speech = "Gujju response:Today in london is too cool and warm" 
-
-    print("Response:")
-    print(speech)
-
-    return {
-        "speech": speech,
-        "displayText": speech,
-        # "data": data,
-        # "contextOut": [],
-        "source": "gujjuweathers"
-    }
-   
+    baseurl = "https://query.yahooapis.com/v1/public/yql?"
+    yql_query = makeYqlQuery(req)
+    if yql_query is None:
+        return {}
+    yql_url = baseurl + urllib.urlencode({'q': yql_query}) + "&format=json"
+    result = urllib.urlopen(yql_url).read()
+    data = json.loads(result)
+    res = makeWebhookResult(data)
+    return res
 
 
 def makeYqlQuery(req):
@@ -94,7 +88,7 @@ def makeWebhookResult(data):
         "displayText": speech,
         # "data": data,
         # "contextOut": [],
-        "source": "gujjuweathers"
+        "source": "apiai-weather-webhook-sample"
     }
 
 
