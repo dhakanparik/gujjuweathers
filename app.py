@@ -14,40 +14,24 @@ app = Flask(__name__)
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
+    req = request.get_json(silent=True, force=True)
 
-      speech = "Gujju response:Today in london is too cool and warm" 
+    print("Request:")
+    print(json.dumps(req, indent=4))
 
-    print("Response:")
-    print(speech)
+    res = processRequest(req)
 
-    return {
-        "speech": speech,
-        "displayText": speech,
-        # "data": data,
-        # "contextOut": [],
-        "source": "gujjuweathers"
-    }
-    # req = request.get_json(silent=True, force=True)
-
-    # print("Request:")
-    # print(json.dumps(req, indent=4))
-
-    # res = processRequest(req)
-
-    # res = json.dumps(res, indent=4)
-    # # print(res)
-    # r = make_response(res)
-    # r.headers['Content-Type'] = 'application/json'
-    # return r
+    res = json.dumps(res, indent=4)
+    # print(res)
+    r = make_response(res)
+    r.headers['Content-Type'] = 'application/json'
+    return r
 
 
 def processRequest(req):
     if req.get("result").get("action") != "GyahooWeatherForecast":
         return {}
-    baseurl = "https://query.yahooapis.com/v1/public/yql?"
-    yql_query = makeYqlQuery(req)
-    if yql_query is None:
-        return {}
+    
          speech = "Gujju response:Today in london is too cool and warm" 
 
     print("Response:")
@@ -58,7 +42,7 @@ def processRequest(req):
         "displayText": speech,
         # "data": data,
         # "contextOut": [],
-        "source": "gujjuweathers"
+        "source": "apiai-weather-webhook-sample"
     }
    
 
@@ -109,7 +93,7 @@ def makeWebhookResult(data):
         "displayText": speech,
         # "data": data,
         # "contextOut": [],
-        "source": "gujjuweathers"
+        "source": "apiai-weather-webhook-sample"
     }
 
 
